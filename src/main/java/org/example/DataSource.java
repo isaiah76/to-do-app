@@ -6,20 +6,27 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DataSource {
-    private static final HikariDataSource ds;
+  private static final HikariDataSource ds;
 
-    static {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(System.getenv("DB_URL"));
-        config.setUsername(System.getenv("DB_USER"));
-        config.setPassword(System.getenv("DB_PASS"));
+  static {
+    HikariConfig config = new HikariConfig();
+    config.setJdbcUrl(System.getenv("DB_URL"));
+    config.setUsername(System.getenv("DB_USER"));
+    config.setPassword(System.getenv("DB_PASS"));
 
-        ds = new HikariDataSource(config);
+    ds = new HikariDataSource(config);
+  }
+
+  private DataSource() {
+  }
+
+  public static Connection getConnection() throws SQLException {
+    return ds.getConnection();
+  }
+
+  public static void closeConnection() {
+    if (ds != null && !ds.isClosed()) {
+      ds.close();
     }
-
-    private DataSource(){}
-
-    public static Connection getConnection() throws SQLException {
-        return ds.getConnection();
-    }
+  }
 }
