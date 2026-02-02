@@ -59,4 +59,12 @@ public class TaskManager {
             ps.executeUpdate();
         }
     }
+
+    public void unmarkCompleted(int id) throws SQLException {
+        String sql = "UPDATE Task SET is_completed = FALSE WHERE id = ?";
+        try  (Connection conn = DataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
 }

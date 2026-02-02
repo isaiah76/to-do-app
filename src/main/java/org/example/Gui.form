@@ -97,8 +97,11 @@
           <maximumSize width="116" height="54"/>
           <minimumSize width="116" height="54"/>
           <preferredSize width="116" height="54"/>
-          <text value="TO-DO-LIST"/>
+          <text value="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h2&gt;TO DO APP&lt;/h2&gt;&lt;/html&gt;"/>
         </properties>
+        <clientProperties>
+          <html.disable class="java.lang.Boolean" value="false"/>
+        </clientProperties>
       </component>
     </children>
   </grid>
