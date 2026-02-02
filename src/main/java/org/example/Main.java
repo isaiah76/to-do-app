@@ -20,8 +20,7 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             TaskManager tm = new TaskManager();
-            Gui gui = new Gui(tm);
-            gui.setVisible(true);
+            new Gui(tm);
         });
 
         try (var conn = DataSource.getConnection()) {
