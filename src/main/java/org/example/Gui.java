@@ -8,13 +8,14 @@ import java.sql.SQLException;
 
 public class Gui extends JFrame {
     private final DefaultListModel<Task> listModel = new DefaultListModel<>();
-    private JList<Task> list1 = new JList<>(listModel);
-
+    private JList list1;
     private JPanel mainPanel;
     private JButton createBtn;
     private JButton editBtn;
     private JButton deleteBtn;
     private JPanel bottomPanel;
+    private JCheckBox markCB;
+    private JPanel spacerPanel;
 
     private final TaskManager tm;
 
@@ -33,23 +34,31 @@ public class Gui extends JFrame {
 
         gd.setFullScreenWindow(this);
 
+        list1.setModel(listModel);
         loadTasks();
 
         createBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                createTask();
             }
         });
 
         editBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                editTask();
             }
         });
 
         deleteBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                deleteTask();
+            }
+        });
+
+        markCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
@@ -64,7 +73,22 @@ public class Gui extends JFrame {
     }
 
     void createTask() {
+        TaskDialog dialog = new TaskDialog(this, "Create Task");
+        dialog.setVisible(true);
 
+        if (dialog.isConfirmed()){
+            String title = dialog.getTitleText(), description = dialog.getDescriptionText();
+            if (!title.isEmpty()){
+               try {
+                   tm.addTask(title, description);
+                   loadTasks();
+               } catch (Exception e){
+                   JOptionPane.showMessageDialog(this, "Error adding task: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               }
+            } else {
+                JOptionPane.showMessageDialog(this, "Title cannot be empty", "Validation Error", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }
 
     void editTask() {
@@ -72,6 +96,6 @@ public class Gui extends JFrame {
     }
 
     void deleteTask() {
-       
+
     }
 }

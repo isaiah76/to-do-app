@@ -34,6 +34,16 @@ public class TaskManager {
         return tasks;
     }
 
+    public void updateTask(int id, String title, String description) throws SQLException {
+        String sql = "UPDATE Task SET title=?, description=? WHERE id=?";
+        try (Connection conn = DataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setInt(3, id);
+            ps.executeUpdate();
+        }
+    }
+
     public void deleteTask(int id) throws SQLException {
         String sql = "DELETE FROM Task WHERE id = ?";
         try (Connection conn = DataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {

@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -20,7 +21,11 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             TaskManager tm = new TaskManager();
-            new Gui(tm);
+            try {
+                new Gui(tm);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         try (var conn = DataSource.getConnection()) {
