@@ -34,6 +34,25 @@ public class TaskManager {
         return tasks;
     }
 
+    public List<Task> searchTask(String title) throws SQLException {
+        List<Task> tasks = new ArrayList<>();
+        String sql = "SELECT * FROM Task WHERE title LIKE ?";
+        try (Connection conn = DataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + title + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tasks.add(new Task(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getBoolean("is_completed"),
+                        rs.getTimestamp("created_at").toLocalDateTime()
+                ));
+            }
+        }
+        return tasks;
+    }
+
     public void updateTask(int id, String title, String description) throws SQLException {
         String sql = "UPDATE Task SET title=?, description=? WHERE id=?";
         try (Connection conn = DataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -62,7 +81,7 @@ public class TaskManager {
 
     public void unmarkCompleted(int id) throws SQLException {
         String sql = "UPDATE Task SET is_completed = FALSE WHERE id = ?";
-        try  (Connection conn = DataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
         }

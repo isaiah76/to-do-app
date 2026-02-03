@@ -17,7 +17,12 @@ public class Gui extends JFrame {
     private JButton deleteBtn;
     private JPanel bottomPanel;
     private JCheckBox markCB;
-    private JPanel spacerPanel;
+    private JPanel spacerPanel2;
+    private JPanel topPanel;
+    private JPanel topInputPanel;
+    private JTextField searchTextField;
+    private JPanel spacerPanel1;
+    private JButton searchButton;
 
     private final TaskManager tm;
 
@@ -80,6 +85,17 @@ public class Gui extends JFrame {
                 }
             }
         });
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    loadSearchTasks();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
     }
 
     void loadTasks() throws SQLException {
@@ -96,6 +112,15 @@ public class Gui extends JFrame {
             markCB.setSelected(false);
             markCB.setEnabled(false);
         }
+    }
+
+    void loadSearchTasks() throws SQLException {
+        String title = searchTextField.getText().trim();
+        if (title.isEmpty()) return;
+
+        listModel.clear();
+        java.util.List<Task> tasks = tm.searchTask(title);
+        tasks.forEach(listModel::addElement);
     }
 
     void createTask() {
@@ -119,15 +144,15 @@ public class Gui extends JFrame {
 
     void editTask() {
         Task selected = getSelectedTask();
-        if  (selected == null) return;
+        if (selected == null) return;
 
         TaskDialog dialog = new TaskDialog(this, "Edit Task");
         dialog.setTitleText(selected.getTitle());
         dialog.setDescriptionText(selected.getDescription());
         dialog.setVisible(true);
 
-        if (dialog.isConfirmed()){
-            String newTitle = dialog.getTitleText(), newDescription =  dialog.getDescriptionText();
+        if (dialog.isConfirmed()) {
+            String newTitle = dialog.getTitleText(), newDescription = dialog.getDescriptionText();
 
             if (newTitle.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Title cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
@@ -137,8 +162,8 @@ public class Gui extends JFrame {
             try {
                 tm.updateTask(selected.getId(), newTitle, newDescription);
                 loadTasks();
-            } catch (SQLException e){
-
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error editing task: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -154,6 +179,7 @@ public class Gui extends JFrame {
                 tm.deleteTask(selected.getId());
                 loadTasks();
             } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error deleting task: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -170,6 +196,7 @@ public class Gui extends JFrame {
             }
             loadTasks();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error marking task: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

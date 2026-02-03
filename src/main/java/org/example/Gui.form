@@ -70,7 +70,7 @@
               <text value=""/>
             </properties>
           </component>
-          <grid id="3ff10" binding="spacerPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="3ff10" binding="spacerPanel2" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
               <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <gridbag weightx="1.0" weighty="0.0"/>
@@ -90,19 +90,71 @@
           </component>
         </children>
       </grid>
-      <component id="524e1" class="javax.swing.JLabel">
+      <grid id="b1410" binding="topPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="North"/>
-        <properties>
-          <horizontalAlignment value="0"/>
-          <maximumSize width="116" height="54"/>
-          <minimumSize width="116" height="54"/>
-          <preferredSize width="116" height="54"/>
-          <text value="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h2&gt;TO DO APP&lt;/h2&gt;&lt;/html&gt;"/>
-        </properties>
-        <clientProperties>
-          <html.disable class="java.lang.Boolean" value="false"/>
-        </clientProperties>
-      </component>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="3454f" class="javax.swing.JLabel">
+            <constraints border-constraint="North"/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <maximumSize width="116" height="54"/>
+              <minimumSize width="116" height="54"/>
+              <preferredSize width="116" height="54"/>
+              <text value="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h2&gt;TO DO APP&lt;/h2&gt;&lt;/html&gt;"/>
+            </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+          </component>
+          <grid id="fd666" binding="topInputPanel" layout-manager="GridBagLayout">
+            <constraints border-constraint="South"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="71817" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <horizontalTextPosition value="11"/>
+                  <text value="Search: "/>
+                </properties>
+              </component>
+              <component id="4472c" class="javax.swing.JTextField" binding="searchTextField">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <columns value="20"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <grid id="5c4c4" binding="spacerPanel1" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="1.0" weighty="0.0"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="f63d3" class="javax.swing.JButton" binding="searchButton">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <text value="SEARCH"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>
